@@ -1,0 +1,438 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8"/>
+<meta name="viewport" content="width=device-width,initial-scale=1.0"/>
+<title>Tropical Rainforest — ALAS</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&family=Inter:wght@300;400;500;600&family=Lora:ital,wght@0,400;1,400&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="styles.css">
+<style>
+  /* ── page-level accent overrides ── */
+  :root{ --accent:#355E3B; --accent-light:#e8f0e9; }
+
+  .story-hero{
+    position:relative;height:92vh;min-height:560px;
+    display:flex;align-items:flex-end;
+    overflow:hidden;color:#fff;
+  }
+  .story-hero-bg{
+    position:absolute;inset:0;
+    background:linear-gradient(180deg,rgba(10,22,12,0.18) 0%,rgba(10,22,12,0.72) 80%),
+      url('src/hutan\ hujan\ tropis.png')
+      center/cover no-repeat;
+    transform:scale(1.04);
+    animation:heroZoom 20s ease-in-out infinite alternate;
+  }
+  @keyframes heroZoom{from{transform:scale(1.04);}to{transform:scale(1.10);}}
+  .story-hero-content{position:relative;z-index:2;padding:0 0 64px;width:100%;}
+  .story-hero-content .wrap{max-width:840px;}
+  .hero-crumb{
+    display:inline-flex;align-items:center;gap:8px;font-size:12px;font-weight:600;
+    letter-spacing:2px;text-transform:uppercase;color:rgba(255,255,255,0.78);margin-bottom:20px;
+  }
+  .hero-crumb a{color:rgba(255,255,255,0.78);transition:color .3s;}
+  .hero-crumb a:hover{color:#fff;}
+  .hero-crumb span{color:rgba(255,255,255,0.45);}
+  .hero-tag{
+    display:inline-block;background:var(--sage);color:#fff;
+    font-size:11px;font-weight:700;letter-spacing:1.5px;text-transform:uppercase;
+    padding:6px 14px;border-radius:999px;margin-bottom:18px;
+  }
+  .story-hero h1{font-size:clamp(32px,5.5vw,64px);font-weight:700;line-height:1.12;margin:0 0 20px;}
+  .story-hero .hero-byline{font-size:14px;color:rgba(255,255,255,0.75);display:flex;gap:20px;flex-wrap:wrap;align-items:center;}
+  .hero-byline .dot{width:4px;height:4px;border-radius:50%;background:rgba(255,255,255,0.5);}
+
+  /* ── article body layout ── */
+  .article-body{max-width:760px;margin:0 auto;padding:0 32px;}
+  .article-lead{
+    font-family:'Lora',serif;font-size:clamp(18px,2.2vw,22px);line-height:1.75;
+    color:var(--forest-dark);margin:64px 0 36px;
+  }
+  .article-body p{font-size:16px;line-height:1.85;color:var(--text-soft);margin:0 0 24px;}
+  .article-body h2{font-size:26px;font-weight:600;color:var(--forest-dark);margin:52px 0 18px;}
+  .article-body h3{font-size:19px;font-weight:600;color:var(--forest-dark);margin:36px 0 14px;}
+  .pull-quote{
+    border-left:4px solid var(--accent);padding:22px 28px;margin:44px 0;
+    background:var(--accent-light);border-radius:0 var(--radius-sm) var(--radius-sm) 0;
+  }
+  .pull-quote p{font-family:'Lora',serif;font-size:20px;font-style:italic;color:var(--forest-dark);line-height:1.65;margin:0 0 10px;}
+  .pull-quote cite{font-size:12.5px;font-weight:600;letter-spacing:1px;text-transform:uppercase;color:var(--text-soft);}
+
+  /* ── stats strip ── */
+  .stats-strip{background:var(--forest-dark);color:#fff;padding:60px 0;}
+  .stats-row{display:grid;grid-template-columns:repeat(4,1fr);gap:0;text-align:center;}
+  .stat-item{padding:20px;border-right:1px solid rgba(255,255,255,0.12);}
+  .stat-item:last-child{border-right:none;}
+  .stat-item .sv{font-family:'Poppins';font-size:40px;font-weight:700;color:var(--sage);line-height:1;}
+  .stat-item .sl{font-size:13px;color:rgba(255,255,255,0.65);margin-top:8px;line-height:1.4;}
+
+  /* ── full-bleed image ── */
+  .full-bleed{margin:60px 0;position:relative;border-radius:var(--radius);overflow:hidden;box-shadow:var(--shadow-lg);}
+  .full-bleed img{width:100%;height:480px;object-fit:cover;display:block;}
+  .full-bleed .caption{position:absolute;bottom:0;left:0;right:0;padding:18px 24px;
+    background:linear-gradient(0deg,rgba(10,20,12,0.82),transparent);
+    font-size:12.5px;color:rgba(255,255,255,0.8);font-style:italic;}
+
+  /* ── photo strip ── */
+  .photo-strip{display:grid;grid-template-columns:repeat(3,1fr);gap:18px;margin:50px 0;}
+  .ps-item{border-radius:var(--radius-sm);overflow:hidden;position:relative;box-shadow:var(--shadow);}
+  .ps-item img{width:100%;height:220px;object-fit:cover;transition:transform .5s;}
+  .ps-item:hover img{transform:scale(1.06);}
+  .ps-item .ps-cap{padding:14px 16px;background:var(--bg-raised);font-size:12.5px;color:var(--text-soft);}
+
+  /* ── two-col sections ── */
+  .two-col{display:grid;grid-template-columns:1fr 1fr;gap:36px;margin:52px 0;}
+  .col-card{background:var(--bg-raised);border-radius:var(--radius);padding:34px;box-shadow:var(--shadow);}
+  .col-card h3{font-size:18px;font-weight:600;margin:0 0 16px;color:var(--forest-dark);}
+  .col-card ul{margin:0;padding:0 0 0 18px;list-style:none;}
+  .col-card ul li{font-size:14.5px;line-height:1.7;color:var(--text-soft);padding:7px 0;
+    border-bottom:1px solid var(--line);position:relative;padding-left:20px;}
+  .col-card ul li:last-child{border-bottom:none;}
+  .col-card ul li::before{content:'';position:absolute;left:0;top:50%;transform:translateY(-50%);
+    width:8px;height:8px;border-radius:50%;background:var(--sage);}
+  .col-card.threat ul li::before{background:var(--earth);}
+
+  /* ── region tags ── */
+  .region-tags{display:flex;flex-wrap:wrap;gap:10px;margin-top:18px;}
+  .rtag{padding:7px 16px;border-radius:999px;background:var(--accent-light);color:var(--forest);
+    font-size:13px;font-weight:600;border:1.5px solid rgba(53,94,59,0.18);}
+
+  /* ── next stories ── */
+  .next-stories{padding:80px 0;background:#F1EEE3;}
+  .story-cards{display:grid;grid-template-columns:repeat(3,1fr);gap:24px;}
+  .sc-card{
+    border-radius:var(--radius-sm);overflow:hidden;background:var(--bg-raised);
+    box-shadow:var(--shadow);transition:transform .4s,box-shadow .4s;text-decoration:none;color:var(--text);display:flex;flex-direction:column;
+  }
+  .sc-card:hover{transform:translateY(-6px);box-shadow:var(--shadow-lg);}
+  .sc-card img{width:100%;height:180px;object-fit:cover;transition:transform .5s;}
+  .sc-card:hover img{transform:scale(1.05);}
+  .sc-body{padding:20px;}
+  .sc-body .sc-tag{font-size:11px;font-weight:700;letter-spacing:1.5px;text-transform:uppercase;color:var(--earth);margin-bottom:8px;}
+  .sc-body h4{font-size:16px;font-weight:600;line-height:1.35;margin:0;}
+
+  /* ── progress bar inline ── */
+  .inline-bar{margin:12px 0 24px;}
+  .ibar-label{display:flex;justify-content:space-between;font-size:12.5px;color:var(--text-soft);margin-bottom:6px;}
+  .ibar-track{height:8px;border-radius:999px;background:rgba(53,94,59,0.12);overflow:hidden;}
+  .ibar-fill{height:100%;border-radius:999px;background:linear-gradient(90deg,var(--sage),var(--forest));
+    width:0;transition:width 1.4s cubic-bezier(.22,.61,.36,1);}
+
+  /* responsive */
+  @media(max-width:900px){
+    .stats-row{grid-template-columns:repeat(2,1fr);}
+    .two-col{grid-template-columns:1fr;}
+    .photo-strip{grid-template-columns:1fr 1fr;}
+    .story-cards{grid-template-columns:1fr 1fr;}
+    .article-body{padding:0 20px;}
+  }
+  @media(max-width:600px){
+    .stats-row{grid-template-columns:1fr 1fr;}
+    .photo-strip{grid-template-columns:1fr;}
+    .story-cards{grid-template-columns:1fr;}
+    .article-body{padding:0 16px;}
+  }
+</style>
+</head>
+<body class="lang-en">
+<div class="grain"></div>
+<div class="toast-wrap" id="toastWrap" aria-live="polite"></div>
+
+<!-- NAV -->
+<header class="nav" id="siteNav">
+  <div class="wrap nav-inner">
+    <a href="index.html" class="nav-logo">
+      <span class="mark">ALAS</span>
+      <span class="sub lang-en">Website of Indonesia's Forests</span>
+      <span class="sub lang-id">Website Hutan Indonesia</span>
+    </a>
+    <nav class="menu" id="mainMenu">
+      <a href="index.html" class="nav-link"><span class="lang-en">Home</span><span class="lang-id">Beranda</span></a>
+      <a href="index.html#explore" class="nav-link active"><span class="lang-en">Explore</span><span class="lang-id">Jelajah</span></a>
+      <a href="news.html" class="nav-link"><span class="lang-en">News</span><span class="lang-id">Berita</span></a>
+      <a href="index.html#data" class="nav-link"><span class="lang-en">Data</span><span class="lang-id">Data</span></a>
+      <a href="gallery.html" class="nav-link"><span class="lang-en">Gallery</span><span class="lang-id">Galeri</span></a>
+      <a href="index.html#about" class="nav-link"><span class="lang-en">About</span><span class="lang-id">Tentang</span></a>
+    </nav>
+    <div class="nav-right">
+      <div class="lang-switch" role="group" aria-label="Language switch">
+        <button id="btnEn" class="on" onclick="setLang('en')">EN</button>
+        <button id="btnId" onclick="setLang('id')">ID</button>
+      </div>
+      <button class="menu-toggle" id="menuToggle" aria-label="Open menu">☰</button>
+    </div>
+  </div>
+</header>
+
+<!-- HERO -->
+<div class="story-hero">
+  <div class="story-hero-bg"></div>
+  <div class="story-hero-content">
+    <div class="wrap">
+      <div class="hero-crumb">
+        <a href="index.html">ALAS</a><span>/</span>
+        <a href="index.html#explore"><span class="lang-en">Explore</span><span class="lang-id">Jelajah</span></a>
+        <span>/</span>
+        <span class="lang-en">Tropical Rainforest</span><span class="lang-id">Hutan Hujan Tropis</span>
+      </div>
+      <div class="hero-tag lang-en">Lowland Biome</div>
+      <div class="hero-tag lang-id">Bioma Dataran Rendah</div>
+      <h1 class="lang-en">Tropical Rainforest</h1>
+      <h1 class="lang-id">Hutan Hujan Tropis</h1>
+      <div class="hero-byline">
+        <span class="lang-en">Kalimantan · Sumatra · Papua</span>
+        <span class="lang-id">Kalimantan · Sumatra · Papua</span>
+        <span class="dot"></span>
+        <span class="lang-en">8 min read</span><span class="lang-id">8 menit baca</span>
+        <span class="dot"></span>
+        <span class="lang-en">Last updated June 2026</span><span class="lang-id">Diperbarui Juni 2026</span>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- STATS STRIP -->
+<div class="stats-strip">
+  <div class="wrap">
+    <div class="stats-row">
+      <div class="stat-item">
+        <div class="sv">128M</div>
+        <div class="sl lang-en">Hectares original extent</div>
+        <div class="sl lang-id">Hektar luas asli</div>
+      </div>
+      <div class="stat-item">
+        <div class="sv">49%</div>
+        <div class="sl lang-en">Remaining cover today</div>
+        <div class="sl lang-id">Tutupan tersisa saat ini</div>
+      </div>
+      <div class="stat-item">
+        <div class="sv">40K+</div>
+        <div class="sl lang-en">Plant species documented</div>
+        <div class="sl lang-id">Spesies tanaman tercatat</div>
+      </div>
+      <div class="stat-item">
+        <div class="sv">300+</div>
+        <div class="sl lang-en">Mammal species found here</div>
+        <div class="sl lang-id">Spesies mamalia di sini</div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- ARTICLE BODY -->
+<main>
+<div class="article-body">
+  <p class="article-lead lang-en">Indonesia's tropical rainforests are among the oldest and most biodiverse ecosystems on Earth — unbroken stretches of canopy that have been growing, evolving, and dying back since before the first humans arrived on these islands.</p>
+  <p class="article-lead lang-id">Hutan hujan tropis Indonesia termasuk ekosistem tertua dan paling beragam di Bumi — hamparan kanopi tak terputus yang telah tumbuh, berevolusi, dan gugur jauh sebelum manusia pertama tiba di kepulauan ini.</p>
+
+  <p class="lang-en">Stretching across Kalimantan, Sumatra, and the vast lowlands of Papua, these forests form the engine of the archipelago's climate. They cycle moisture back into the atmosphere through transpiration, anchor soils against erosion, and absorb carbon at a rate that no technology has yet matched. When scientists talk about Indonesia's ecological importance on a planetary scale, they are almost always talking about these forests.</p>
+  <p class="lang-id">Membentang di Kalimantan, Sumatra, dan dataran rendah Papua yang luas, hutan-hutan ini menjadi mesin iklim kepulauan. Mereka mengalirkan kembali kelembapan ke atmosfer melalui transpirasi, menahan tanah dari erosi, dan menyerap karbon pada laju yang belum bisa ditandingi teknologi apapun. Ketika para ilmuwan berbicara tentang pentingnya Indonesia secara ekologis di skala planet, mereka hampir selalu membicarakan hutan-hutan ini.</p>
+
+  <h2 class="lang-en">Life at Every Layer</h2>
+  <h2 class="lang-id">Kehidupan di Setiap Lapisan</h2>
+
+  <p class="lang-en">A mature tropical rainforest is not a single thing but a stack of distinct worlds. The emergent layer — the tallest trees, sometimes reaching 60 metres — catches full sunlight. Below it, the closed canopy forms a near-continuous ceiling. Beneath that lie the understorey and forest floor: darker, damper, cooler zones where light arrives only in sudden shafts whenever a tree falls and opens a gap.</p>
+  <p class="lang-id">Hutan hujan tropis dewasa bukan satu entitas, melainkan tumpukan dunia yang berbeda-beda. Lapisan emergent — pohon-pohon tertinggi, terkadang mencapai 60 meter — menangkap cahaya matahari penuh. Di bawahnya, kanopi tertutup membentuk atap yang hampir tidak terputus. Di bawah itu terdapat lapisan bawah dan lantai hutan: zona yang lebih gelap, lebih lembap, dan lebih sejuk, di mana cahaya hanya tiba dalam sinar tiba-tiba ketika sebuah pohon tumbang membuka celah.</p>
+
+  <p class="lang-en">Each layer hosts its own community of specialists. The orangutan is the most famous resident — found only in Kalimantan and northern Sumatra — but the forest also shelters pygmy elephants, sun bears, clouded leopards, hundreds of hornbill species, and more than two thousand orchid species whose pollinators are still being discovered.</p>
+  <p class="lang-id">Setiap lapisan menampung komunitasnya sendiri dari spesialis. Orangutan adalah penghuni yang paling terkenal — hanya ditemukan di Kalimantan dan Sumatra bagian utara — tetapi hutan ini juga menampung gajah pygmy, beruang madu, macan dahan, ratusan spesies rangkong, dan lebih dari dua ribu spesies anggrek yang polinatornya masih terus ditemukan.</p>
+
+  <div class="pull-quote">
+    <p class="lang-en">"These forests are not background scenery. They are functioning infrastructure — for water, for climate, for the livelihoods of thirty million people who live at their edges."</p>
+    <p class="lang-id">"Hutan-hutan ini bukan sekadar latar belakang. Mereka adalah infrastruktur yang berfungsi — untuk air, untuk iklim, untuk mata pencaharian tiga puluh juta orang yang tinggal di tepi-tepinya."</p>
+    <cite lang-en>Dr. Rudi Hartono, Forest Ecology Institute, Bogor · 2025</cite>
+    <cite lang-id>Dr. Rudi Hartono, Institut Ekologi Hutan, Bogor · 2025</cite>
+  </div>
+
+</div><!-- /.article-body -->
+
+
+<div class="article-body">
+  <h2 class="lang-en">Carbon, Climate, and the Water Tower</h2>
+  <h2 class="lang-id">Karbon, Iklim, dan Menara Air</h2>
+
+  <p class="lang-en">Indonesia's tropical forests hold roughly 25.5 billion tonnes of above-ground carbon — a number that puts the country among the most consequential carbon stores on Earth. When these forests burn or are cleared, that carbon enters the atmosphere rapidly, amplifying global heating at a rate disproportionate to Indonesia's size or emissions history.</p>
+  <p class="lang-id">Hutan tropis Indonesia menyimpan sekitar 25,5 miliar ton karbon di atas tanah — angka yang menempatkan negeri ini di antara penyimpan karbon paling penting di Bumi. Ketika hutan-hutan ini terbakar atau dibuka, karbon tersebut masuk ke atmosfer dengan cepat, memperkuat pemanasan global secara tidak proporsional terhadap ukuran atau sejarah emisi Indonesia.</p>
+
+  <p class="lang-en">They also function as a continental-scale water recycler. Forests in Kalimantan are estimated to return 70 per cent of rainfall back to the atmosphere via evapotranspiration — generating the rainfall patterns that feed agriculture not just in Indonesia but across Southeast Asia. Losing these forests means losing a system that has been managing weather for millions of years.</p>
+  <p class="lang-id">Hutan-hutan ini juga berfungsi sebagai pendaur ulang air berskala benua. Hutan di Kalimantan diperkirakan mengembalikan 70 persen curah hujan ke atmosfer melalui evapotranspirasi — menghasilkan pola curah hujan yang memberi makan pertanian tidak hanya di Indonesia tetapi di seluruh Asia Tenggara. Kehilangan hutan ini berarti kehilangan sistem yang telah mengelola cuaca selama jutaan tahun.</p>
+
+</div><!-- /.article-body -->
+
+
+<div class="article-body">
+  <h2 class="lang-en">Threats and Pressures</h2>
+  <h2 class="lang-id">Ancaman dan Tekanan</h2>
+  <p class="lang-en">Indonesia's tropical forests have lost roughly half their original extent since 1950 — the fastest rate of any major forest system globally over that period. The drivers are well-documented but politically complex to address.</p>
+  <p class="lang-id">Hutan tropis Indonesia telah kehilangan sekitar setengah dari luas aslinya sejak 1950 — laju tercepat dari sistem hutan besar manapun secara global selama periode itu. Penyebabnya sudah terdokumentasi dengan baik tetapi secara politik sulit untuk ditangani.</p>
+</div>
+
+<!-- TWO-COL -->
+<div class="wrap">
+<div class="two-col reveal">
+  <div class="col-card threat">
+    <h3 class="lang-en">⚠ Key Threats</h3>
+    <h3 class="lang-id">⚠ Ancaman Utama</h3>
+    <ul>
+      <li class="lang-en">Industrial palm oil and pulpwood plantation expansion</li>
+      <li class="lang-id">Ekspansi perkebunan sawit dan kayu pulp industrial</li>
+      <li class="lang-en">Illegal and legal selective logging weakening forest structure</li>
+      <li class="lang-id">Penebangan selektif ilegal dan legal yang melemahkan struktur hutan</li>
+      <li class="lang-en">Infrastructure corridors (roads, dams, mining) fragmenting habitat</li>
+      <li class="lang-id">Koridor infrastruktur (jalan, bendungan, pertambangan) yang memfragmentasi habitat</li>
+      <li class="lang-en">Fire used as a land-clearing tool, especially in drought years</li>
+      <li class="lang-id">Api digunakan sebagai alat pembukaan lahan, terutama pada tahun kering</li>
+      <li class="lang-en">Climate-change-driven drought stress increasing tree mortality</li>
+      <li class="lang-id">Stres kekeringan akibat perubahan iklim meningkatkan kematian pohon</li>
+    </ul>
+  </div>
+  <div class="col-card">
+    <h3 class="lang-en">✦ Conservation Efforts</h3>
+    <h3 class="lang-id">✦ Upaya Konservasi</h3>
+    <ul>
+      <li class="lang-en">Moratorium on new primary-forest concessions extended through 2026</li>
+      <li class="lang-id">Moratorium konsesi hutan primer baru diperpanjang hingga 2026</li>
+      <li class="lang-en">REDD+ carbon credit programmes incentivising protection</li>
+      <li class="lang-id">Program kredit karbon REDD+ yang mendorong perlindungan</li>
+      <li class="lang-en">Indigenous community forest tenure recognition in 6 provinces</li>
+      <li class="lang-id">Pengakuan hak hutan komunitas adat di 6 provinsi</li>
+      <li class="lang-en">Wildlife corridor restoration connecting fragmented blocks</li>
+      <li class="lang-id">Restorasi koridor satwa liar yang menghubungkan blok yang terfragmentasi</li>
+      <li class="lang-en">EU deforestation-free regulation creating market pressure</li>
+      <li class="lang-id">Regulasi bebas deforestasi UE menciptakan tekanan pasar</li>
+    </ul>
+  </div>
+</div>
+</div>
+
+<div class="article-body">
+  <h2 class="lang-en">Key Regions</h2>
+  <h2 class="lang-id">Kawasan Kunci</h2>
+  <p class="lang-en">The most intact tropical rainforest in Indonesia today is found in three major regions, each with its own ecology, governance challenge, and conservation story.</p>
+  <p class="lang-id">Hutan hujan tropis paling utuh di Indonesia saat ini ditemukan di tiga kawasan utama, masing-masing dengan ekologi, tantangan tata kelola, dan kisah konservasinya sendiri.</p>
+  <div class="region-tags">
+    <span class="rtag lang-en">Kalimantan — Heart of Borneo</span><span class="rtag lang-id">Kalimantan — Jantung Borneo</span>
+    <span class="rtag lang-en">Sumatra — Leuser Ecosystem</span><span class="rtag lang-id">Sumatra — Ekosistem Leuser</span>
+    <span class="rtag lang-en">Papua — Western New Guinea</span><span class="rtag lang-id">Papua — Papua Barat</span>
+    <span class="rtag lang-en">Maluku — The Spice Islands</span><span class="rtag lang-id">Maluku — Kepulauan Rempah</span>
+  </div>
+</div>
+</main>
+
+<!-- NEXT STORIES -->
+<section class="next-stories">
+  <div class="wrap">
+    <div class="section-head reveal" style="margin-bottom:36px;">
+      <span class="eyebrow lang-en">Explore More</span>
+      <span class="eyebrow lang-id">Jelajahi Lainnya</span>
+      <h2 class="lang-en">Other Forest Ecosystems</h2>
+      <h2 class="lang-id">Ekosistem Hutan Lainnya</h2>
+    </div>
+    <div class="story-cards reveal">
+      <a href="mangrove2.html" class="sc-card">
+        <img src="src/hutan mangrove.jpg" alt="Mangrove Forest">
+        <div class="sc-body">
+          <div class="sc-tag lang-en">Coastal Biome</div><div class="sc-tag lang-id">Bioma Pesisir</div>
+          <h4 class="lang-en">Mangrove Forest</h4><h4 class="lang-id">Hutan Mangrove</h4>
+        </div>
+      </a>
+      <a href="gambut2.html" class="sc-card">
+        <img src="src/hutan gambut.webp" alt="Peat Forest">
+        <div class="sc-body">
+          <div class="sc-tag lang-en">Wetland Biome</div><div class="sc-tag lang-id">Bioma Lahan Basah</div>
+          <h4 class="lang-en">Peat Forest</h4><h4 class="lang-id">Hutan Gambut</h4>
+        </div>
+      </a>
+      <a href="mountain2.html" class="sc-card">
+        <img src="src/mountain forest.jpg" alt="Mountain Forest">
+        <div class="sc-body">
+          <div class="sc-tag lang-en">Highland Biome</div><div class="sc-tag lang-id">Bioma Dataran Tinggi</div>
+          <h4 class="lang-en">Mountain Forest</h4><h4 class="lang-id">Hutan Pegunungan</h4>
+        </div>
+      </a>
+    </div>
+  </div>
+</section>
+
+<!-- FOOTER -->
+<footer>
+  <div class="wrap">
+    <div class="footer-grid">
+      <div>
+        <div class="footer-logo">ALAS</div>
+        <p class="lang-en">An interactive website documenting Indonesia's forests through stories, data, and photography.</p>
+        <p class="lang-id">Website interaktif yang mendokumentasikan hutan Indonesia melalui kisah, data, dan fotografi.</p>
+      </div>
+      <div class="footer-col">
+        <h6 class="lang-en">Explore</h6><h6 class="lang-id">Jelajah</h6>
+        <a href="index.html#explore"><span class="lang-en">Forest Types</span><span class="lang-id">Jenis Hutan</span></a>
+        <a href="index.html#data"><span class="lang-en">Forest Data</span><span class="lang-id">Data Hutan</span></a>
+        <a href="gallery.html"><span class="lang-en">Gallery</span><span class="lang-id">Galeri</span></a>
+      </div>
+      <div class="footer-col">
+        <h6 class="lang-en">Stories</h6><h6 class="lang-id">Kisah</h6>
+        <a href="news.html"><span class="lang-en">Deforestation</span><span class="lang-id">Deforestasi</span></a>
+        <a href="news.html"><span class="lang-en">Conservation</span><span class="lang-id">Konservasi</span></a>
+        <a href="news.html"><span class="lang-en">Policy</span><span class="lang-id">Kebijakan</span></a>
+      </div>
+      <div class="footer-col">
+        <h6 class="lang-en">Platform</h6><h6 class="lang-id">Platform</h6>
+        <a href="index.html#about"><span class="lang-en">About ALAS</span><span class="lang-id">Tentang ALAS</span></a>
+        <a href="https://www.instagram.com/marsyaafnii" target="_blank" rel="noopener noreferrer"><span class="lang-en">Instagram</span><span class="lang-id">Instagram</span></a>
+        <a href="https://wa.me/6281296322560" target="_blank" rel="noopener noreferrer"><span class="lang-en">Whatsapp</span><span class="lang-id">Whatsapp</span></a>
+      </div>
+    </div>
+    <div class="footer-bottom">
+      <span class="lang-en">© 2026 ALAS. An independent forest website.</span>
+      <span class="lang-id">© 2026 ALAS. Website hutan independen.</span>
+      <span class="lang-en">Made for Indonesia's forests.</span>
+      <span class="lang-id">Dibuat untuk hutan Indonesia.</span>
+    </div>
+  </div>
+</footer>
+
+<button class="back-to-top" id="backToTop" aria-label="Back to top">
+  <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4"><polyline points="18 15 12 9 6 15"/></svg>
+</button>
+
+<script>
+let currentLang='en';
+function setLang(lang){
+  currentLang=lang;
+  document.body.classList.remove('lang-en','lang-id');
+  document.body.classList.add('lang-'+lang);
+  document.getElementById('btnEn').classList.toggle('on',lang==='en');
+  document.getElementById('btnId').classList.toggle('on',lang==='id');
+  document.documentElement.lang=lang;
+}
+const nav=document.getElementById('siteNav');
+const backBtn=document.getElementById('backToTop');
+window.addEventListener('scroll',()=>{
+  const y=window.scrollY;
+  nav.classList.toggle('solid',y>60);
+  backBtn.classList.toggle('show',y>600);
+  document.querySelectorAll('.reveal:not(.in)').forEach(el=>{
+    if(el.getBoundingClientRect().top<window.innerHeight*0.88){
+      el.classList.add('in');
+      el.querySelectorAll('.ibar-fill').forEach(f=>f.style.width=f.dataset.fill+'%');
+    }
+  });
+},{passive:true});
+backBtn.addEventListener('click',()=>window.scrollTo({top:0,behavior:'smooth'}));
+document.getElementById('menuToggle').addEventListener('click',()=>{
+  const m=document.getElementById('mainMenu');
+  const open=m.style.display==='flex';
+  m.style.cssText=open?'':'display:flex;position:fixed;top:64px;left:0;right:0;flex-direction:column;background:rgba(247,245,239,0.98);padding:14px 24px;gap:4px;box-shadow:0 14px 30px rgba(0,0,0,0.1);';
+});
+window.addEventListener('load',()=>{
+  document.querySelectorAll('.reveal').forEach(el=>{
+    if(el.getBoundingClientRect().top<window.innerHeight*0.88){
+      el.classList.add('in');
+      el.querySelectorAll('.ibar-fill').forEach(f=>f.style.width=f.dataset.fill+'%');
+    }
+  });
+});
+</script>
+</body>
+</html>

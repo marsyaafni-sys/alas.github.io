@@ -1,0 +1,133 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>ALAS — An Interactive Website of Indonesia's Forests</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&family=Inter:wght@300;400;500;600&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="styles.css">
+</head>
+<body class="lang-en">
+<div class="grain"></div>
+
+<!-- NAV -->
+<header class="nav solid" id="siteNav">
+  <div class="wrap nav-inner">
+    <a href="index.html" class="nav-logo">
+      <span class="mark">ALAS</span>
+      <span class="sub lang-en">Website of Indonesia's Forests</span>
+      <span class="sub lang-id">Website Hutan Indonesia</span>
+    </a>
+    <nav class="menu" id="mainMenu">
+      <a href="index.html" class="nav-link">Home</a>
+      <a href="index.html#explore" class="nav-link" data-sec="explore"><span class="lang-en">Explore</span><span class="lang-id">Jelajah</span></a>
+      <a href="news.html" class="nav-link" data-sec="news"><span class="leaf-ind"></span><span class="lang-en">News</span><span class="lang-id">Berita</span></a>
+      <a href="index.html#data" class="nav-link" data-sec="data"><span class="leaf-ind"></span><span class="lang-en">Data</span><span class="lang-id">Data</span></a>
+      <a href="gallery.html" class="nav-link active" data-sec="gallery"><span class="leaf-ind"></span><span class="lang-en">Gallery</span><span class="lang-id">Galeri</span></a>
+      <a href="index.html#about" class="nav-link" data-sec="about"><span class="leaf-ind"></span><span class="lang-en">About</span><span class="lang-id">Tentang</span></a>
+    </nav>
+    <div class="nav-right">
+      <div class="lang-switch" role="group" aria-label="Language switch">
+        <button id="btnEn" class="on" onclick="setLang('en')">EN</button>
+        <button id="btnId" onclick="setLang('id')">ID</button>
+      </div>
+      <button class="menu-toggle" id="menuToggle" aria-label="Open menu">☰</button>
+    </div>
+  </div>
+</header>
+<div class="breadcrumb-strip" id="breadcrumb"><span class="wrap"><b>ALAS</b> <span id="bcText"> / Home</span></span></div>
+
+<!-- GALLERY -->
+<section id="gallery">
+  <div class="wrap">
+    <div class="section-head reveal">
+      <span class="eyebrow lang-en">Visual Journal</span>
+      <span class="eyebrow lang-id">Jurnal Visual</span>
+      <h2><span class="lang-en">Gallery</span><span class="lang-id">Galeri</span></h2>
+      <p class="lang-en">Photographs from the field — hover to see where each image was taken.</p>
+      <p class="lang-id">Foto-foto dari lapangan — arahkan kursor untuk melihat lokasi setiap gambar.</p>
+    </div>
+
+    <div class="masonry reveal" id="masonryGrid">
+
+    <div class="masonry-item" data-location-en="Leuser Ecosystem, Aceh" data-location-id="Ekosistem Leuser, Aceh">
+      <img src="src/mountain forest.jpg" alt="Leuser Forest">
+    </div>
+
+    <div class="masonry-item" data-location-en="Berau Delta, East Kalimantan" data-location-id="Delta Berau, Kalimantan Timur">
+      <img src="src/hutan mangrove.jpg" alt="Berau Mangrove">
+    </div>
+
+    <div class="masonry-item" data-location-en="Kerinci Seblat, Sumatra" data-location-id="Kerinci Seblat, Sumatra">
+      <img src="src/hutan hujan tropis.png" alt="Kerinci Forest">
+    </div>
+
+    <div class="masonry-item" data-location-en="Sebangau, Central Kalimantan" data-location-id="Sebangau, Kalimantan Tengah">
+      <img src="src/pexels-fabio-dinasti-1013674887-20317147.jpg" alt="Peat Forest">
+    </div>
+
+    <div class="masonry-item" data-location-en="Way Kambas, Lampung" data-location-id="Way Kambas, Lampung">
+      <img src="src/pexels-ilya-batorshin-175967339-11246275.jpg" alt="Way Kambas">
+    </div>
+
+    <div class="masonry-item" data-location-en="Raja Ampat, West Papua" data-location-id="Raja Ampat, Papua Barat">
+      <img src="src/pexels-tomfisk-2666806.jpg" alt="Raja Ampat Forest">
+    </div>
+
+    <div class="masonry-item" data-location-en="Gunung Leuser, North Sumatra" data-location-id="Gunung Leuser, Sumatra Utara">
+      <img src="src/pexels-tomfisk-5672689.jpg" alt="Gunung Leuser">
+    </div>
+
+    <div class="masonry-item" data-location-en="Tanjung Puting, Central Kalimantan" data-location-id="Tanjung Puting, Kalimantan Tengah">
+      <img src="src/pexels-tomfisk-6226993.jpg" alt="Tanjung Puting">
+    </div>
+    </div>
+  </div>
+</section>
+
+<!-- FOOTER -->
+<footer>
+  <div class="wrap">
+    <div class="footer-grid">
+      <div>
+        <div class="footer-logo">ALAS</div>
+        <p class="lang-en">An interactive website documenting Indonesia's forests through stories, data, and photography.</p>
+        <p class="lang-id">Website interaktif yang mendokumentasikan hutan Indonesia melalui kisah, data, dan fotografi.</p>
+      </div>
+      <div class="footer-col">
+        <h6 class="lang-en">Explore</h6><h6 class="lang-id">Jelajah</h6>
+        <a href="index.html#explore"><span class="lang-en">Forest Types</span><span class="lang-id">Jenis Hutan</span></a>
+        <a href="index.html#data"><span class="lang-en">Forest Data</span><span class="lang-id">Data Hutan</span></a>
+        <a href="gallery.html"><span class="lang-en">Gallery</span><span class="lang-id">Galeri</span></a>
+      </div>
+      <div class="footer-col">
+        <h6 class="lang-en">Stories</h6><h6 class="lang-id">Kisah</h6>
+        <a href="news.html"><span class="lang-en">Deforestation</span><span class="lang-id">Deforestasi</span></a>
+        <a href="news.html"><span class="lang-en">Conservation</span><span class="lang-id">Konservasi</span></a>
+        <a href="news.html"><span class="lang-en">Policy</span><span class="lang-id">Kebijakan</span></a>
+      </div>
+      <div class="footer-col">
+        <h6 class="lang-en">Platform</h6><h6 class="lang-id">Platform</h6>
+        <a href="index.html#about"><span class="lang-en">About ALAS</span><span class="lang-id">Tentang ALAS</span></a>
+        <a href="https://www.instagram.com/marsyaafnii" target="_blank" rel="noopener noreferrer"><span class="lang-en">Instagram</span><span class="lang-id">Instagram</span></a>
+        <a href="https://wa.me/6281296322560" target="_blank" rel="noopener noreferrer"><span class="lang-en">Whatsapp</span><span class="lang-id">Whatsapp</span></a>
+      </div>
+    </div>
+    <div class="footer-bottom">
+      <span class="lang-en">© 2026 ALAS. An independent forest website.</span>
+      <span class="lang-id">© 2026 ALAS. Website hutan independen.</span>
+      <span class="lang-en">Made for Indonesia's forests.</span>
+      <span class="lang-id">Dibuat untuk hutan Indonesia.</span>
+    </div>
+  </div>
+</footer>
+
+<button class="back-to-top" id="backToTop" aria-label="Back to top">
+  <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4"><polyline points="18 15 12 9 6 15"/></svg>
+</button>
+
+<script src="main.js"></script>
+
+</body>
+</html>

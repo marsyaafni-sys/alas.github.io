@@ -1,0 +1,216 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>ALAS — An Interactive Atlas of Indonesia's Forests</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&family=Inter:wght@300;400;500;600&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="styles.css">
+</head>
+<body class="lang-en">
+<div class="grain"></div>
+
+<!-- TOASTS -->
+<div class="toast-wrap" id="toastWrap" aria-live="polite"></div>
+
+<!-- NAV -->
+<header class="nav solid" id="siteNav">
+  <div class="wrap nav-inner">
+    <a href="index.html" class="nav-logo">
+      <span class="mark">ALAS</span>
+      <span class="sub lang-en">Atlas of Indonesia's Forests</span>
+      <span class="sub lang-id">Atlas Hutan Indonesia</span>
+    </a>
+    <nav class="menu" id="mainMenu">
+      <a href="index.html" class="nav-link"><span class="leaf-ind"></span><span class="lang-en">Home</span><span class="lang-id">Beranda</span></a>
+      <a href="index.html#explore" class="nav-link" data-sec="explore"><span class="leaf-ind"></span><span class="lang-en">Explore</span><span class="lang-id">Jelajah</span></a>
+      <a href="news.html" class="nav-link active" data-sec="news"><span class="leaf-ind"></span><span class="lang-en">News</span><span class="lang-id">Berita</span></a>
+      <a href="index.html#data">Data<span class="leaf-ind"></span></a>
+      <a href="gallery.html" class="nav-link"><span class="leaf-ind"></span><span class="lang-en">Gallery</span><span class="lang-id">Galeri</span></a>
+      <a href="#about" class="nav-link" data-sec="about"><span class="leaf-ind"></span><span class="lang-en">About</span><span class="lang-id">Tentang</span></a>
+    </nav>
+    <div class="nav-right">
+      <div class="lang-switch" role="group" aria-label="Language switch">
+        <button id="btnEn" class="on" onclick="setLang('en')">EN</button>
+        <button id="btnId" onclick="setLang('id')">ID</button>
+      </div>
+      <button class="menu-toggle" id="menuToggle" aria-label="Open menu">☰</button>
+    </div>
+  </div>
+</header>
+<div class="breadcrumb-strip" id="breadcrumb"><span class="wrap"><b>ALAS</b> <span id="bcText"> / Home</span></span></div>
+
+<!-- NEWS -->
+<section id="news" style="background:#F1EEE3;">
+  <div class="wrap">
+    <div class="section-head reveal">
+      <span class="eyebrow lang-en">Field Reporting</span>
+      <span class="eyebrow lang-id">Laporan Lapangan</span>
+      <h2><span class="lang-en">Latest News</span><span class="lang-id">Berita Terbaru</span></h2>
+      <p class="lang-en">Dispatches on deforestation, conservation, restoration, and the policies shaping Indonesia's forest future.</p>
+      <p class="lang-id">Laporan tentang deforestasi, konservasi, restorasi, dan kebijakan yang membentuk masa depan hutan Indonesia.</p>
+    </div>
+    <div class="news-toolbar reveal">
+  <div class="search-bar">
+    <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="11" cy="11" r="8"/><line x1="21" y1="21" x2="16.65" y2="16.65"/></svg>
+    <input type="text" id="newsSearch" placeholder="Search articles…" data-ph-en="Search articles…" data-ph-id="Cari artikel…" autocomplete="off">
+  </div>
+  <div class="filter-chips" id="filterChips">
+    <button class="chip active" data-cat="all"><span class="lang-en">All</span><span class="lang-id">Semua</span></button>
+    <button class="chip" data-cat="deforestation"><span class="lang-en">Deforestation</span><span class="lang-id">Deforestasi</span></button>
+    <button class="chip" data-cat="conservation"><span class="lang-en">Conservation</span><span class="lang-id">Konservasi</span></button>
+    <button class="chip" data-cat="restoration"><span class="lang-en">Restoration</span><span class="lang-id">Restorasi</span></button>
+    <button class="chip" data-cat="policy"><span class="lang-en">Policy</span><span class="lang-id">Kebijakan</span></button>
+  </div>
+</div>
+
+<div class="search-status" id="searchStatus"></div>
+
+    <!-- loading skeleton, swapped out on load -->
+    <div id="newsLoading" class="skeleton-grid">
+      <div class="skel-card"><div class="skel-img"></div><div class="skel-line short"></div><div class="skel-line"></div><div class="skel-line" style="width:80%"></div></div>
+      <div class="skel-card"><div class="skel-img"></div><div class="skel-line short"></div><div class="skel-line"></div><div class="skel-line" style="width:80%"></div></div>
+      <div class="skel-card"><div class="skel-img"></div><div class="skel-line short"></div><div class="skel-line"></div><div class="skel-line" style="width:80%"></div></div>
+    </div>
+    <!-- Deforestasi -->
+    <div id="newsContent">
+      <div class="featured-article reveal">
+        <div class="fa-img">
+          <span class="fa-badge lang-en">Featured</span><span class="fa-badge lang-id">Utama</span>
+          <img src="src/hentikan-deforestasi-kalimantan.jpg" alt="Koalisi organisasi non-pemerintah,Walhi Kalteng dan SOB, sedang melakukan aksi di salah satu perusahaan HTI di Kalimantan Tengah">
+        </div>
+        <div class="fa-body">
+          <div class="fa-cat lang-en">Deforestation</div><div class="fa-cat lang-id">Deforestasi</div>
+          <h3 class="lang-en">Deforestation in Kalimantan Triggers Disasters and Agrarian Conflicts</h3>
+          <h3 class="lang-id">Deforestasi di Kalimantan Picu Bencana dan Konflik Agraria</h3>
+          <p class="lang-en">The Kalimantan Regional Indonesian Environment Forum (Walhi) noted that over the past decade, around 33.59% of the region's ecological landscape has been damaged. With the loss of an average of 412,790 hectares of tropical forest every year.</p>
+          <p class="lang-id">Wahana Lingkungan Hidup Indonesia (Walhi) Regional Kalimantan mencatat, sepanjang satu dekade terakhir, sekitar 33,59% lanskap ekologis wilayah ini mengalami kerusakan. Dengan kehilangan rata-rata 412.790 hektar hutan tropis setiap tahunnya.</p>
+          <div class="fa-meta"><span class="lang-en">5 min read · June 21, 2026</span><span class="lang-id">5 menit baca · 21 Juni 2026</span></div>
+          <a class="btn btn-primary" href="https://mongabay.co.id/2026/06/21/deforestasi-di-kalimantan-picu-bencana-dan-konflik-agraria/" target="_blank" rel="noopener noreferrer" style="width:fit-content;" onclick="toastMsg('en','Opening full story…','Membuka kisah lengkap…');">
+            <span class="lang-en">Read News</span><span class="lang-id">Baca Berita</span>
+          </a>
+        </div>
+      </div>
+    </div>
+    <div class="news-grid" id="newsGrid">
+      <a href="https://mongabay.co.id/2026/03/27/kala-masyarakat-adat-papua-protes-pelepasan-hampir-500-ribu-hektar-kawasan-hutan/"
+        target="_blank"
+        rel="noopener noreferrer"
+        class="news-link">
+      <div class="news-card">
+        <div class="nc-img">
+          <img src="src/Papua-food-estate.jpeg" alt="Papua Food Estate">
+        </div>
+      <div class="nc-body">
+        <div class="nc-cat">Deforestation</div>
+          <h4 class="lang-en">When Papuan Indigenous Peoples Protest the Release of Nearly 500 Thousand Hectares of Forest Area</h4>
+          <h4 class="lang-id">Masyarakat Adat Papua Protes Pelepasan Hampir 500 Ribu Hektar Kawasan Hutan</h4>
+          <p class="lang-en">The area of forest area that has been converted into other use...</p>
+          <p class="lang-id">Luas kawasan hutan yang berubah jadi alokasi penggunaan lain...</p>
+        <div class="nc-meta"><span class="lang-en">5 min read · June 21, 2026</span><span class="lang-id">5 menit baca · 21 Juni 2026</span></div>
+      </div>
+      </div>
+      </a>
+      <a href="https://rm.id/berita/2026/06/22/apbi-dorong-optimalisasi-permenhut-nomor-6-tahun-2026" 
+        target="_blank" 
+        rel="noopener noreferrer" 
+        class="news-link">
+        <div class="news-card">
+          <div class="nc-img">
+            <img src="src/forest-carbon-policy.jpeg" alt="Carbon Policy Forest">
+          </div>
+          <div class="nc-body">
+            <div class="nc-cat">Deforestation</div>
+            
+            <h4 class="lang-en">APHI Urges Forestry Businesses to Optimize New Carbon Regulation</h4>
+            <h4 class="lang-id">APHI Dorong Pelaku Usaha Kehutanan Optimalkan Permenhut No. 6 Tahun 2026</h4>
+            
+            <p class="lang-en">The Indonesian Forest Concessionaires Association (APHI) encourages forestry businesses to optimize Minister of Environment and Forestry Regulation No. 6 of 2026 to accelerate carbon projects and national carbon trading in PBPH areas.</p>
+            <p class="lang-id">Asosiasi Pengusaha Hutan Indonesia (APHI) mendorong para pelaku usaha kehutanan untuk mengoptimalkan Permenhut Nomor 6 Tahun 2026 guna mempercepat pengembangan proyek dan perdagangan karbon nasional di area Perizinan Berusaha Pemanfaatan Hutan (PBPH).</p>
+            
+            <div class="nc-meta">
+              <span class="lang-en">5 min read · June 22, 2026</span>
+              <span class="lang-id">5 menit baca · 22 Juni 2026</span>
+            </div>
+          </div>
+        </div>
+      </a>
+      <!-- Restorasi Hutan -->
+      <a href="https://www.kehutanan.go.id/news/di-sidang-unff-21-menhut-pertegas-langkah-indonesia-pulihkan-12-juta-hektare-lahan" 
+        target="_blank" 
+        rel="noopener noreferrer" 
+        class="news-link">
+        <div class="news-card">
+          <div class="nc-img">
+            <img src="src/restorasi.jpg" alt="Sidang Restorasi DI PBB UNFF 21">
+          </div>
+          <div class="nc-body">
+            <div class="nc-cat">Restoration</div>
+            <h4 class="lang-en">Indonesia Commits to Restore 12 Million Hectares of Critical Land</h4>
+            <h4 class="lang-id">Indonesia Komitmen Restorasi 12 Juta Hektare Lahan Kritis</h4>
+            <p class="lang-en">The Indonesian government reaffirms its commitment to sustainable forest and land rehabilitation. This was stated by the Minister of Forestry at the 21st Session of the United Nations Forum on Forests (UNFF21) in New York, with a focus on restoring 12 million hectares of critical land.</p>
+            <p class="lang-id">Pemerintah Indonesia kembali menegaskan komitmennya untuk rehabilitasi dan restorasi hutan serta lahan secara berkelanjutan. Hal ini disampaikan Menteri Kehutanan dalam Sidang ke-21 Forum Kehutanan PBB (UNFF21) di New York, dengan prioritas restorasi 12 juta hektare lahan kritis.</p>
+            <div class="nc-meta">
+              <span class="lang-en">5 min read · May 11, 2026</span>
+              <span class="lang-id">5 menit baca · 11 Mei 2026</span>
+            </div>
+          </div>
+        </div>
+      </a>
+  
+      <div class="news-empty" id="newsEmpty">
+        <h3 class="lang-en" style="font-family:'Poppins';color:var(--forest-dark);">No articles found</h3>
+        <h3 class="lang-id" style="font-family:'Poppins';color:var(--forest-dark);">Artikel tidak ditemukan</h3>
+        <p class="lang-en">Try a different keyword or clear your filters.</p>
+        <p class="lang-id">Coba kata kunci lain atau hapus filter Anda.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- FOOTER -->
+<footer>
+  <div class="wrap">
+    <div class="footer-grid">
+      <div>
+        <div class="footer-logo">ALAS</div>
+        <p class="lang-en">An interactive website documenting Indonesia's forests through stories, data, and photography.</p>
+        <p class="lang-id">Website interaktif yang mendokumentasikan hutan Indonesia melalui kisah, data, dan fotografi.</p>
+      </div>
+      <div class="footer-col">
+        <h6 class="lang-en">Explore</h6><h6 class="lang-id">Jelajah</h6>
+        <a href="index.html#explore"><span class="lang-en">Forest Types</span><span class="lang-id">Jenis Hutan</span></a>
+        <a href="index.html#data"><span class="lang-en">Forest Data</span><span class="lang-id">Data Hutan</span></a>
+        <a href="gallery.html"><span class="lang-en">Gallery</span><span class="lang-id">Galeri</span></a>
+      </div>
+      <div class="footer-col">
+        <h6 class="lang-en">Stories</h6><h6 class="lang-id">Kisah</h6>
+        <a href="news.html"><span class="lang-en">Deforestation</span><span class="lang-id">Deforestasi</span></a>
+        <a href="news.html"><span class="lang-en">Conservation</span><span class="lang-id">Konservasi</span></a>
+        <a href="news.html"><span class="lang-en">Policy</span><span class="lang-id">Kebijakan</span></a>
+      </div>
+      <div class="footer-col">
+        <h6 class="lang-en">Platform</h6><h6 class="lang-id">Platform</h6>
+        <a href="index.html#about"><span class="lang-en">About ALAS</span><span class="lang-id">Tentang ALAS</span></a>
+        <a href="https://www.instagram.com/marsyaafnii" target="_blank" rel="noopener noreferrer"><span class="lang-en">Instagram</span><span class="lang-id">Instagram</span></a>
+        <a href="https://wa.me/6281296322560" target="_blank" rel="noopener noreferrer"><span class="lang-en">Whatsapp</span><span class="lang-id">Whatsapp</span></a>
+      </div>
+    </div>
+    <div class="footer-bottom">
+      <span class="lang-en">© 2026 ALAS. An independent forest website.</span>
+      <span class="lang-id">© 2026 ALAS. Website hutan independen.</span>
+      <span class="lang-en">Made for Indonesia's forests.</span>
+      <span class="lang-id">Dibuat untuk hutan Indonesia.</span>
+    </div>
+  </div>
+</footer>
+
+<button class="back-to-top" id="backToTop" aria-label="Back to top">
+  <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4"><polyline points="18 15 12 9 6 15"/></svg>
+</button>
+
+<script src="main.js"></script>
+
+</body>
+</html>
