@@ -3,13 +3,30 @@ const NEWS = [
   {cat:'deforestation',
   en_t:'When Papuan Indigenous Peoples Protest the Release of Nearly 500 Thousand Hectares of Forest Area',
   id_t:'Masyarakat Adat Papua Protes Pelepasan Hampir 500 Ribu Hektar Kawasan Hutan',
-  en_d:'The area of forest area that has been converted into other use...',
-  id_d:'Luas kawasan hutan yang berubah jadi alokasi penggunaan lain...',
+  en_d:'The area of forest area that has been converted into other use allocation (APL), namely, in Merauke is 333,966 hectares, Boven Digoel (143,142), and Mappi is 9,731 hectares. The area that the government released will be a national food, energy and water project in South Papua.',
+  id_d:'Luas kawasan hutan yang berubah jadi alokasi penggunaan lain (APL), yakni, di Merauke 333.966 hektar, Boven Digoel (143.142), dan Mappi 9.731 hektar.  Areal yang pemerintah lepas ini akan jadi proyek pangan, energi dan air nasional di Papua Selatan.',
   img:'src/Papua-food-estate.jpeg',
   date_en:'June 21, 2026',
   date_id:'21 Juni 2026',
   link:'https://mongabay.co.id/2026/03/27/kala-masyarakat-adat-papua-protes-pelepasan-hampir-500-ribu-hektar-kawasan-hutan/'},
-  
+  {cat: 'policy',
+  en_t: 'Indonesian Forest Business Association Urges Optimization of New Carbon Regulation',
+  id_t: 'APHI Dorong Pelaku Usaha Kehutanan Optimalkan Permenhut Nomor 6 Tahun 2026',
+  en_d: 'The Indonesian Forest Concessionaires Association (APHI) encourages forestry businesses to optimize Minister of Environment and Forestry Regulation No. 6 of 2026 to accelerate carbon project development and national carbon trading in forest utilization permit areas (PBPH).',
+  id_d: 'Asosiasi Pengusaha Hutan Indonesia (APHI) mendorong para pelaku usaha sektor kehutanan untuk mengoptimalkan Permenhut Nomor 6 Tahun 2026 guna mempercepat pengembangan proyek dan tata niaga perdagangan karbon nasional di area Perizinan Berusaha Pemanfaatan Hutan (PBPH).',
+  img: 'src/policy.jpg',
+  date_en: 'June 22, 2026',
+  date_id: '22 Juni 2026',
+  link: 'https://rm.id/baca-berita/ekonomi-bisnis/315142/aphi-dorong-pemegang-pbph-manfaatkan-permenhut-62026-kembangkan-proyek-karbon'},
+  {cat: 'restoration',
+  en_t: 'Indonesia Commits to Restore 12 Million Hectares of Critical Land',
+  id_t: 'Indonesia Komitmen Restorasi 12 Juta Hektare Lahan Kritis',
+  en_d: 'The Indonesian government reaffirms its commitment to sustainable forest and land rehabilitation at UNFF21, focusing on restoring 12 million hectares of critical land.',
+  id_d: 'Pemerintah Indonesia menegaskan kembali komitmen rehabilitasi dan restorasi hutan/lahan berkelanjutan pada 12 juta hektare lahan kritis di Sidang UNFF21 New York.',
+  img: 'src/restorasi.jpg',
+  date_en: 'May 11, 2026',
+  date_id: "11 Mei 2026",
+  link: "https://www.kehutanan.go.id/news/di-sidang-unff-21-menhut-pertegas-langkah-indonesia-pulihkan-12-juta-hektare-lahan"},
 ];
 
 const GALLERY = [
@@ -253,7 +270,9 @@ const dataSection = document.getElementById('data');
 const dataObserver = new IntersectionObserver(entries=>{
   entries.forEach(e=>{ if(e.isIntersecting) runCounters(); });
 },{threshold:0.3});
-dataObserver.observe(dataSection);
+if(dataSection){
+  dataObserver.observe(dataSection);
+}
 
 /* ===================== BEFORE / AFTER SLIDER ===================== */
 const baWrap = document.getElementById('baWrap');
