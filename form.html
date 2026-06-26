@@ -1,0 +1,568 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8"/>
+<meta name="viewport" content="width=device-width,initial-scale=1.0"/>
+<title>Contribute — ALAS</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&family=Inter:wght@300;400;500;600&family=Lora:ital@1&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="styles.css">
+<style>
+
+.page-hero{
+  padding:150px 0 80px;
+  background:linear-gradient(160deg,#1E2B20 0%,#2d4a31 55%,#3d6642 100%);
+  color:#fff;text-align:center;position:relative;overflow:hidden;
+}
+.page-hero::before{
+  content:"";position:absolute;inset:0;
+  background:url('src/cover.jpg')
+    center/cover no-repeat;
+  opacity:.08;
+}
+.page-hero .wrap{position:relative;z-index:1;}
+.hero-crumb{
+  display:inline-flex;align-items:center;gap:8px;
+  font-size:12px;font-weight:600;letter-spacing:2px;text-transform:uppercase;
+  color:rgba(255,255,255,0.6);margin-bottom:24px;
+}
+.hero-crumb a{color:rgba(255,255,255,0.6);transition:color .3s;}
+.hero-crumb a:hover{color:#fff;}
+.hero-crumb span{color:rgba(255,255,255,0.3);}
+.hero-tag{
+  display:inline-block;background:rgba(109,139,116,0.35);color:var(--sage);
+  font-size:11.5px;font-weight:700;letter-spacing:2px;text-transform:uppercase;
+  padding:7px 18px;border-radius:999px;border:1px solid rgba(109,139,116,0.5);
+  margin-bottom:20px;
+}
+.page-hero h1{font-size:clamp(32px,5vw,58px);font-weight:700;margin:0 0 18px;line-height:1.1;}
+.page-hero p{font-size:17px;line-height:1.75;color:rgba(255,255,255,0.78);max-width:520px;margin:0 auto;}
+
+/* ── form section ── */
+.form-section{padding:80px 0 110px;}
+.form-center{max-width:600px;margin:0 auto;}
+
+.form-card{
+  background:var(--bg-raised);border-radius:var(--radius);
+  box-shadow:var(--shadow-lg);padding:52px 48px;
+}
+@media(max-width:600px){.form-card{padding:32px 22px;}}
+
+.form-card .fc-head{margin-bottom:36px;text-align:center;}
+.form-card .fc-head h2{font-size:26px;font-weight:700;color:var(--forest-dark);margin:0 0 10px;}
+.form-card .fc-head p{font-size:15px;color:var(--text-soft);margin:0;line-height:1.65;}
+
+/* fields */
+.field{margin-bottom:26px;}
+.field label{
+  display:block;font-size:13.5px;font-weight:600;color:var(--text);
+  margin-bottom:8px;letter-spacing:.2px;
+}
+.field label .req{color:var(--earth);margin-left:2px;}
+.field input,.field textarea{
+  width:100%;border:1.5px solid var(--line);border-radius:var(--radius-sm);
+  padding:14px 18px;font-family:'Inter',sans-serif;font-size:15px;
+  color:var(--text);background:var(--bg);outline:none;
+  transition:border-color .25s, box-shadow .25s, background .25s;
+}
+.field input:focus,.field textarea:focus{
+  border-color:var(--forest);background:#fff;
+  box-shadow:0 0 0 4px rgba(53,94,59,0.1);
+}
+.field input.error,.field textarea.error{
+  border-color:#c94f4f;
+  box-shadow:0 0 0 4px rgba(201,79,79,0.09);
+}
+.field textarea{resize:vertical;min-height:160px;line-height:1.7;}
+
+.field-error{
+  font-size:12.5px;color:#c94f4f;margin-top:6px;
+  display:none;font-weight:500;
+}
+.field-error.show{display:block;}
+
+/* char counter */
+.msg-footer{display:flex;justify-content:space-between;align-items:center;margin-top:6px;}
+.char-count{font-size:12px;color:var(--text-soft);}
+.char-count.near{color:var(--earth);}
+
+/* submit */
+.submit-btn{
+  width:100%;padding:17px 24px;border:none;border-radius:999px;
+  background:var(--forest);color:#fff;font-size:16px;font-weight:700;
+  letter-spacing:.3px;cursor:pointer;position:relative;overflow:hidden;
+  transition:background .3s, transform .25s, box-shadow .3s;
+  box-shadow:0 10px 28px rgba(53,94,59,0.3);
+  display:flex;align-items:center;justify-content:center;gap:10px;
+  margin-top:8px;
+}
+.submit-btn:hover:not(:disabled){
+  background:var(--forest-dark);
+  transform:translateY(-2px);
+  box-shadow:0 16px 36px rgba(53,94,59,0.38);
+}
+.submit-btn:disabled{opacity:.6;cursor:not-allowed;}
+.submit-btn .spinner{
+  width:19px;height:19px;
+  border:2.5px solid rgba(255,255,255,0.3);border-top-color:#fff;
+  border-radius:50%;animation:spin .7s linear infinite;display:none;flex-shrink:0;
+}
+.submit-btn.loading .spinner{display:block;}
+.submit-btn.loading .btn-text{display:none;}
+@keyframes spin{to{transform:rotate(360deg);}}
+
+/* ripple on btn */
+.submit-btn .ripple{
+  position:absolute;border-radius:50%;background:rgba(255,255,255,0.4);
+  transform:scale(0);animation:rippleAnim .6s ease-out;pointer-events:none;
+}
+@keyframes rippleAnim{to{transform:scale(4);opacity:0;}}
+
+/* ── SUCCESS OVERLAY ── */
+.success-overlay{
+  display:none;position:fixed;inset:0;z-index:2000;
+  background:rgba(22,34,24,0.60);backdrop-filter:blur(12px);
+  align-items:center;justify-content:center;padding:24px;
+}
+.success-overlay.show{display:flex;}
+
+.success-modal{
+  background:#fff;border-radius:28px;padding:56px 48px;text-align:center;
+  max-width:480px;width:100%;position:relative;overflow:hidden;
+  box-shadow:0 40px 80px rgba(0,0,0,0.22);
+  animation:modalIn .5s cubic-bezier(.34,1.56,.64,1);
+}
+@keyframes modalIn{from{opacity:0;transform:scale(.86) translateY(24px);}to{opacity:1;transform:scale(1) translateY(0);}}
+@media(max-width:520px){.success-modal{padding:40px 28px;}}
+
+.success-check{
+  width:88px;height:88px;border-radius:50%;
+  background:linear-gradient(135deg,var(--sage),var(--forest));
+  display:flex;align-items:center;justify-content:center;
+  margin:0 auto 26px;
+  animation:popIn .55s cubic-bezier(.34,1.56,.64,1) .05s both;
+}
+@keyframes popIn{from{transform:scale(0);opacity:0;}to{transform:scale(1);opacity:1;}}
+.success-check svg{
+  width:44px;height:44px;color:#fff;
+  stroke-dasharray:55;stroke-dashoffset:55;
+  animation:drawCheck .45s ease .5s forwards;
+}
+@keyframes drawCheck{to{stroke-dashoffset:0;}}
+
+.success-modal h2{
+  font-size:28px;font-weight:700;color:var(--forest-dark);margin:0 0 8px;
+}
+.success-tagline{
+  font-family:'Lora',serif;font-size:18px;font-style:italic;
+  color:var(--sage);margin:0 0 18px;
+}
+.success-modal > p{
+  font-size:14.5px;line-height:1.75;color:var(--text-soft);
+  margin:0 0 28px;
+}
+.success-actions{display:flex;gap:12px;justify-content:center;flex-wrap:wrap;}
+
+/* confetti */
+.confetti-wrap{position:absolute;inset:0;pointer-events:none;overflow:hidden;}
+.cp{
+  position:absolute;
+  animation:fall linear both;
+}
+@keyframes fall{
+  0%{opacity:1;transform:translateY(-10px) rotate(0deg);}
+  100%{opacity:0;transform:translateY(105vh) rotate(600deg);}
+}
+</style>
+</head>
+<body class="lang-en">
+<div class="grain"></div>
+
+<!-- SUCCESS OVERLAY -->
+<div class="success-overlay" id="successOverlay" role="dialog" aria-modal="true" aria-labelledby="successTitle">
+  <div class="success-modal">
+    <div class="confetti-wrap" id="confettiWrap"></div>
+
+    <div class="success-check">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.6"
+        stroke-linecap="round" stroke-linejoin="round">
+        <polyline points="20 6 9 17 4 12"/>
+      </svg>
+    </div>
+
+    <h2 id="successTitle">
+      <span class="lang-en">Thank you!</span>
+      <span class="lang-id">Terima kasih!</span>
+    </h2>
+    <p class="success-tagline">Terima kasih telah berkontribusi</p>
+    <p>
+      <span class="lang-en">Your message has been received. Our team will review it and get back to you within 3–5 business days.</span>
+      <span class="lang-id">Pesan Anda telah diterima. Tim kami akan meninjaunya dan menghubungi Anda dalam 3–5 hari kerja.</span>
+    </p>
+
+    <div class="success-actions">
+      <a href="index.html" class="btn btn-primary">
+        <span class="lang-en">Back to ALAS</span>
+        <span class="lang-id">Kembali ke ALAS</span>
+      </a>
+      <button class="btn" style="background:var(--bg);color:var(--forest);border:1.5px solid var(--line);"
+        onclick="resetForm()">
+        <span class="lang-en">Send Another</span>
+        <span class="lang-id">Kirim Lagi</span>
+      </button>
+    </div>
+  </div>
+</div>
+
+<!-- TOASTS -->
+<div class="toast-wrap" id="toastWrap" aria-live="polite"></div>
+
+<!-- NAV -->
+<header class="nav" id="siteNav">
+  <div class="wrap nav-inner">
+    <a href="#home" class="nav-logo">
+      <span class="mark">ALAS</span>
+      <span class="sub lang-en">Website of Indonesia's Forests</span>
+      <span class="sub lang-id">Website Hutan Indonesia</span>
+    </a>
+    <nav class="menu" id="mainMenu">
+      <a href="index.html#home" class="nav-link active" data-sec="home"><span class="leaf-ind"></span><span class="lang-en">Home</span><span class="lang-id">Beranda</span></a>
+      <a href="index.html#explore" class="nav-link" data-sec="explore"><span class="leaf-ind"></span><span class="lang-en">Explore</span><span class="lang-id">Jelajah</span></a>
+      <a href="news.html" class="nav-link" data-sec="news"><span class="leaf-ind"></span><span class="lang-en">News</span><span class="lang-id">Berita</span></a>
+      <a href="index.html#data" class="nav-link" data-sec="data"><span class="leaf-ind"></span><span class="lang-en">Data</span><span class="lang-id">Data</span></a>
+      <a href="gallery.html" class="nav-link" data-sec="gallery"><span class="leaf-ind"></span><span class="lang-en">Gallery</span><span class="lang-id">Galeri</span></a>
+      <a href="index.html#about" class="nav-link" data-sec="about"><span class="leaf-ind"></span><span class="lang-en">About</span><span class="lang-id">Tentang</span></a>
+    </nav>
+    <div class="nav-right">
+      <div class="lang-switch" role="group" aria-label="Language switch">
+        <button id="btnEn" class="on" onclick="setLang('en')">EN</button>
+        <button id="btnId" onclick="setLang('id')">ID</button>
+      </div>
+      <button class="menu-toggle" id="menuToggle" aria-label="Open menu">☰</button>
+    </div>
+  </div>
+</header>
+<div class="breadcrumb-strip" id="breadcrumb"><span class="wrap"><b>ALAS</b> <span id="bcText"> / Home</span></span></div>
+
+<!-- HERO -->
+<div class="page-hero">
+  <div class="wrap">
+    <div class="hero-crumb">
+      <a href="index.html">ALAS</a>
+      <span>/</span>
+      <span class="lang-en">Contribute</span>
+      <span class="lang-id">Berkontribusi</span>
+    </div>
+    <div class="hero-tag lang-en">Community Platform</div>
+    <div class="hero-tag lang-id">Platform Komunitas</div>
+    <h1 class="lang-en">Share Your Thoughts</h1>
+    <h1 class="lang-id">Bagikan Pendapat Anda</h1>
+    <p class="lang-en">Got information or a suggestion about Indonesia's forests? We'd love to hear from you.</p>
+    <p class="lang-id">Punya informasi atau saran tentang hutan Indonesia? Kami ingin mendengar dari Anda.</p>
+  </div>
+</div>
+
+<!-- FORM -->
+<section class="form-section">
+  <div class="wrap">
+    <div class="form-center">
+      <div class="form-card reveal">
+
+        <div class="fc-head">
+          <h2 class="lang-en">Send a Message</h2>
+          <h2 class="lang-id">Kirim Pesan</h2>
+          <p class="lang-en">Fill in the fields below — all three are required.</p>
+          <p class="lang-id">Isi kolom di bawah ini — ketiganya wajib diisi.</p>
+        </div>
+
+        <!-- NAME -->
+        <div class="field">
+          <label for="inputName">
+            <span class="lang-en">Full Name</span>
+            <span class="lang-id">Nama Lengkap</span>
+            <span class="req">*</span>
+          </label>
+          <input
+            type="text"
+            id="inputName"
+            autocomplete="name"
+            maxlength="80"
+            data-ph-en="e.g. Budi Santoso"
+            data-ph-id="mis. Budi Santoso"
+          >
+          <div class="field-error" id="errName">
+            <span class="lang-en">Please enter your name.</span>
+            <span class="lang-id">Mohon masukkan nama Anda.</span>
+          </div>
+        </div>
+
+        <!-- EMAIL -->
+        <div class="field">
+          <label for="inputEmail">
+            <span class="lang-en">Email Address</span>
+            <span class="lang-id">Alamat Email</span>
+            <span class="req">*</span>
+          </label>
+          <input
+            type="email"
+            id="inputEmail"
+            autocomplete="email"
+            data-ph-en="e.g. budi@email.com"
+            data-ph-id="mis. budi@email.com"
+          >
+          <div class="field-error" id="errEmail">
+            <span class="lang-en">Please enter a valid email address.</span>
+            <span class="lang-id">Mohon masukkan alamat email yang valid.</span>
+          </div>
+        </div>
+
+        <!-- MESSAGE -->
+        <div class="field">
+          <label for="inputMessage">
+            <span class="lang-en">Your Info or Suggestion</span>
+            <span class="lang-id">Info atau Saran Anda</span>
+            <span class="req">*</span>
+          </label>
+          <textarea
+            id="inputMessage"
+            maxlength="800"
+            data-ph-en="Write your information or suggestion about Indonesia's forests here…"
+            data-ph-id="Tulis informasi atau saran Anda tentang hutan Indonesia di sini…"
+          ></textarea>
+          <div class="msg-footer">
+            <div class="field-error" id="errMessage" style="margin:0;">
+              <span class="lang-en">Please write at least 10 characters.</span>
+              <span class="lang-id">Mohon tulis minimal 10 karakter.</span>
+            </div>
+            <span class="char-count" id="charCount">0 / 800</span>
+          </div>
+        </div>
+
+        <!-- SUBMIT -->
+        <button class="submit-btn" id="submitBtn" onclick="handleSubmit(event)">
+          <div class="spinner"></div>
+          <span class="btn-text">
+            <span class="lang-en">Send Message</span>
+            <span class="lang-id">Kirim Pesan</span>
+          </span>
+        </button>
+
+      </div><!-- /.form-card -->
+    </div>
+  </div>
+</section>
+
+<button class="back-to-top" id="backToTop" aria-label="Back to top">
+  <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4">
+    <polyline points="18 15 12 9 6 15"/>
+  </svg>
+</button>
+
+<!-- FOOTER -->
+<footer>
+  <div class="wrap">
+    <div class="footer-grid">
+      <div>
+        <div class="footer-logo">ALAS</div>
+        <p class="lang-en">An interactive website documenting Indonesia's forests through stories, data, and photography.</p>
+        <p class="lang-id">Website interaktif yang mendokumentasikan hutan Indonesia melalui kisah, data, dan fotografi.</p>
+      </div>
+      <div class="footer-col">
+        <h6 class="lang-en">Explore</h6><h6 class="lang-id">Jelajah</h6>
+        <a href="index.html#explore"><span class="lang-en">Forest Types</span><span class="lang-id">Jenis Hutan</span></a>
+        <a href="index.html#data"><span class="lang-en">Forest Data</span><span class="lang-id">Data Hutan</span></a>
+        <a href="gallery.html"><span class="lang-en">Gallery</span><span class="lang-id">Galeri</span></a>
+      </div>
+      <div class="footer-col">
+        <h6 class="lang-en">Stories</h6><h6 class="lang-id">Kisah</h6>
+        <a href="news.html"><span class="lang-en">Deforestation</span><span class="lang-id">Deforestasi</span></a>
+        <a href="news.html"><span class="lang-en">Conservation</span><span class="lang-id">Konservasi</span></a>
+        <a href="news.html"><span class="lang-en">Policy</span><span class="lang-id">Kebijakan</span></a>
+      </div>
+      <div class="footer-col">
+        <h6 class="lang-en">Platform</h6><h6 class="lang-id">Platform</h6>
+        <a href="index.html#about"><span class="lang-en">About ALAS</span><span class="lang-id">Tentang ALAS</span></a>
+        <a href="https://www.instagram.com/marsyaafnii" target="_blank" rel="noopener noreferrer"><span class="lang-en">Instagram</span><span class="lang-id">Instagram</span></a>
+        <a href="https://wa.me/6281296322560" target="_blank" rel="noopener noreferrer"><span class="lang-en">Whatsapp</span><span class="lang-id">Whatsapp</span></a>
+        <a href="mailto:connect@alas.id">connect@alas.id</a>
+      </div>
+      <div class="footer-col">
+        <h6 class="lang-en">Connect</h6><h6 class="lang-id">Terhubung</h6>
+        <a href="form.html"><span class="lang-en">Contribute</span><span class="lang-id">Berkontribusi</span></a>
+      </div>
+    </div>
+    <div class="footer-bottom">
+      <span class="lang-en">© 2026 ALAS. An independent forest website.</span>
+      <span class="lang-id">© 2026 ALAS. Website hutan independen.</span>
+      <span class="lang-en">Made for Indonesia's forests.</span>
+      <span class="lang-id">Dibuat untuk hutan Indonesia.</span>
+    </div>
+  </div>
+</footer>
+<script>
+/* ── lang ── */
+let currentLang = 'en';
+
+function setLang(lang) {
+  currentLang = lang;
+  document.body.classList.remove('lang-en', 'lang-id');
+  document.body.classList.add('lang-' + lang);
+  document.getElementById('btnEn').classList.toggle('on', lang === 'en');
+  document.getElementById('btnId').classList.toggle('on', lang === 'id');
+  document.documentElement.lang = lang;
+  updatePlaceholders();
+}
+
+function updatePlaceholders() {
+  ['inputName', 'inputEmail', 'inputMessage'].forEach(id => {
+    const el = document.getElementById(id);
+    const key = 'ph' + currentLang.charAt(0).toUpperCase() + currentLang.slice(1);
+    el.placeholder = el.dataset[key] || '';
+  });
+}
+
+/* ── char counter ── */
+const msgEl = document.getElementById('inputMessage');
+const charCount = document.getElementById('charCount');
+msgEl.addEventListener('input', () => {
+  const n = msgEl.value.length;
+  charCount.textContent = n + ' / 800';
+  charCount.classList.toggle('near', n > 680);
+  if (n >= 10) clearErr('inputMessage', 'errMessage');
+});
+
+/* ── live clear errors ── */
+function clearErr(inputId, errId) {
+  document.getElementById(inputId).classList.remove('error');
+  document.getElementById(errId).classList.remove('show');
+}
+document.getElementById('inputName').addEventListener('input', () => clearErr('inputName', 'errName'));
+document.getElementById('inputEmail').addEventListener('input', () => clearErr('inputEmail', 'errEmail'));
+
+/* ── validate ── */
+function validate() {
+  let ok = true;
+
+  const name = document.getElementById('inputName');
+  const nameErr = document.getElementById('errName');
+  if (name.value.trim().length < 2) {
+    name.classList.add('error'); nameErr.classList.add('show'); ok = false;
+  }
+
+  const email = document.getElementById('inputEmail');
+  const emailErr = document.getElementById('errEmail');
+  if (!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email.value)) {
+    email.classList.add('error'); emailErr.classList.add('show'); ok = false;
+  }
+
+  const msg = document.getElementById('inputMessage');
+  const msgErr = document.getElementById('errMessage');
+  if (msg.value.trim().length < 10) {
+    msg.classList.add('error'); msgErr.classList.add('show'); ok = false;
+  }
+
+  return ok;
+}
+
+/* ── submit ── */
+function handleSubmit(e) {
+  // ripple
+  const btn = document.getElementById('submitBtn');
+  const rect = btn.getBoundingClientRect();
+  const rip = document.createElement('span');
+  rip.className = 'ripple';
+  const s = Math.max(rect.width, rect.height);
+  rip.style.cssText = `width:${s}px;height:${s}px;left:${e.clientX - rect.left - s/2}px;top:${e.clientY - rect.top - s/2}px;`;
+  btn.appendChild(rip);
+  setTimeout(() => rip.remove(), 650);
+
+  if (!validate()) {
+    const firstErr = document.querySelector('input.error, textarea.error');
+    if (firstErr) firstErr.scrollIntoView({ behavior: 'smooth', block: 'center' });
+    return;
+  }
+
+  btn.classList.add('loading');
+  btn.disabled = true;
+
+  setTimeout(() => {
+    btn.classList.remove('loading');
+    showSuccess();
+  }, 1600);
+}
+
+/* ── success ── */
+function showSuccess() {
+  document.getElementById('successOverlay').classList.add('show');
+  spawnConfetti();
+}
+
+function resetForm() {
+  document.getElementById('successOverlay').classList.remove('show');
+  ['inputName', 'inputEmail', 'inputMessage'].forEach(id => {
+    const el = document.getElementById(id);
+    el.value = '';
+    el.classList.remove('error');
+  });
+  ['errName', 'errEmail', 'errMessage'].forEach(id =>
+    document.getElementById(id).classList.remove('show')
+  );
+  charCount.textContent = '0 / 800';
+  const btn = document.getElementById('submitBtn');
+  btn.disabled = false;
+  window.scrollTo({ top: 0, behavior: 'smooth' });
+}
+
+/* ── confetti ── */
+const COLORS = ['#355E3B','#6D8B74','#B08968','#d4c5a9','#22402A','#F7F5EF'];
+function spawnConfetti() {
+  const wrap = document.getElementById('confettiWrap');
+  wrap.innerHTML = '';
+  for (let i = 0; i < 48; i++) {
+    const el = document.createElement('div');
+    el.className = 'cp';
+    const size = 6 + Math.random() * 7;
+    el.style.cssText = `
+      left:${Math.random() * 100}%;
+      width:${size}px; height:${size}px;
+      background:${COLORS[Math.floor(Math.random() * COLORS.length)]};
+      border-radius:${Math.random() > .5 ? '50%' : '3px'};
+      animation-duration:${2.2 + Math.random() * 2}s;
+      animation-delay:${Math.random() * .6}s;
+    `;
+    wrap.appendChild(el);
+  }
+}
+
+/* ── nav ── */
+const nav = document.getElementById('siteNav');
+const backBtn = document.getElementById('backToTop');
+window.addEventListener('scroll', () => {
+  nav.classList.toggle('solid', window.scrollY > 10);
+  backBtn.classList.toggle('show', window.scrollY > 400);
+  document.querySelectorAll('.reveal:not(.in)').forEach(el => {
+    if (el.getBoundingClientRect().top < window.innerHeight * .88) el.classList.add('in');
+  });
+}, { passive: true });
+backBtn.addEventListener('click', () => window.scrollTo({ top: 0, behavior: 'smooth' }));
+
+document.getElementById('menuToggle').addEventListener('click', () => {
+  const m = document.getElementById('mainMenu');
+  const open = m.style.display === 'flex';
+  m.style.cssText = open ? '' :
+    'display:flex;position:fixed;top:64px;left:0;right:0;flex-direction:column;background:rgba(247,245,239,0.98);padding:14px 24px;gap:4px;box-shadow:0 14px 30px rgba(0,0,0,0.1);z-index:999;';
+});
+
+window.addEventListener('keydown', e => {
+  if (e.key === 'Escape') document.getElementById('successOverlay').classList.remove('show');
+});
+
+window.addEventListener('load', () => {
+  updatePlaceholders();
+  document.querySelectorAll('.reveal').forEach(el => {
+    if (el.getBoundingClientRect().top < window.innerHeight * .88) el.classList.add('in');
+  });
+});
+</script>
+</body>
+</html>
